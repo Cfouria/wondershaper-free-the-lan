@@ -1,0 +1,18 @@
+if [ $# -lt 2 ]; then
+  echo "Usage: $0 adapter rate (rate is in kilobits example:192 =24KiloBytes)"
+  echo "clear: $0 adapter clear"
+  exit 1
+fi
+
+echo "command: sh $0"
+echo "adapter: $1"
+echo "rate: $2"
+
+if [ $2 = "clear" ]; then
+  sudo ./wondershaper -a $1 -c
+  exit 1
+fi
+
+sudo ip link add ifb1 type ifb
+sudo ./wondershaper -a $1 -c
+sudo ./wondershaper -a $1 -d $2
